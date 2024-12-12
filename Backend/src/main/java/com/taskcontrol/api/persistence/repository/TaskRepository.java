@@ -9,15 +9,17 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface TaskRepository extends JpaRepository<Task, Long> {
 
-  List<Task> findAllByTaskStatus(TaskStatus status);
+  List<Task> findAllByStatus(TaskStatus status);
 
-  List<Task> findAllByTaskCategory(TaskCategory category);
+  List<Task> findAllByCategory(TaskCategory category);
 
-  List<Task> findAllByTaskDate(LocalDate date);
+  List<Task> findAllByCategoryAndStatus(TaskCategory category, TaskStatus status);
 
-  List<Task> findAllByTaskDateAfter(LocalDate date);
+  List<Task> findAllByDate(LocalDate date);
 
-  List<Task> findAllByTaskDateBefore(LocalDate date);
+  List<Task> findAllByDateAfter(LocalDate date);
 
-  List<Task> findAllByTaskDateBetween(LocalDate dateAfter, LocalDate dateBefore);
+  List<Task> findAllByDateBefore(LocalDate date);
+
+  List<Task> findAllByDateBetween(LocalDate dateAfter, LocalDate dateBefore);
 }

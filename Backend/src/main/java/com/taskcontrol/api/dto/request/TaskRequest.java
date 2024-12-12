@@ -18,7 +18,7 @@ public record TaskRequest(
     TaskStatus status,
     @NotNull(message = "La category no puede ir vacio")
     TaskCategory category,
-    @NotBlank(message = "El date no puede ir vacio")
+    @NotNull(message = "El date no puede ir vacio")
     LocalDate date
 ) {
 

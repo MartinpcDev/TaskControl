@@ -1,0 +1,20 @@
+services:
+
+  db:
+    image: postgres:latest
+    container_name: task_control
+    environment:
+      POSTGRES_USER: martinpc
+      POSTGRES_DB: taskcontroldb
+      POSTGRES_PASSWORD: 123456
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - task-network
+
+networks:
+  task-network:
+volumes:
+  db-data:
