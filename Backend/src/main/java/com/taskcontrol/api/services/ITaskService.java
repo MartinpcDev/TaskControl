@@ -2,30 +2,33 @@ package com.taskcontrol.api.services;
 
 import com.taskcontrol.api.dto.request.TaskRequest;
 import com.taskcontrol.api.dto.request.TaskUpdateRequest;
+import com.taskcontrol.api.dto.response.AppResponse;
 import com.taskcontrol.api.dto.response.DeleteResponse;
 import com.taskcontrol.api.dto.response.TaskResponse;
 import com.taskcontrol.api.persistence.model.TaskCategory;
 import com.taskcontrol.api.persistence.model.TaskStatus;
 import java.time.LocalDate;
-import java.util.List;
+import org.springframework.data.domain.Pageable;
 
 public interface ITaskService {
 
-  List<TaskResponse> allTasks();
+  AppResponse allTasks(Pageable pageable);
 
-  List<TaskResponse> allTasksByStatus(TaskStatus status);
+  AppResponse allTasksByStatus(TaskStatus status, Pageable pageable);
 
-  List<TaskResponse> allTasksByCategory(TaskCategory category);
+  AppResponse allTasksByCategory(TaskCategory category, Pageable pageable);
 
-  List<TaskResponse> allTasksByCategoryAndStatus(TaskCategory category, TaskStatus status);
+  AppResponse allTasksByCategoryAndStatus(TaskCategory category, TaskStatus status,
+      Pageable pageable);
 
-  List<TaskResponse> tasksByDate(LocalDate date);
+  AppResponse tasksByDate(LocalDate date, Pageable pageable);
 
-  List<TaskResponse> taskByDateAfter(LocalDate date);
+  AppResponse taskByDateAfter(LocalDate date, Pageable pageable);
 
-  List<TaskResponse> taskByDateBefore(LocalDate date);
+  AppResponse taskByDateBefore(LocalDate date, Pageable pageable);
 
-  List<TaskResponse> taskByDateBetween(LocalDate afterDate, LocalDate beforeDate);
+  AppResponse taskByDateBetween(LocalDate afterDate, LocalDate beforeDate,
+      Pageable pageable);
 
   TaskResponse taskById(Long id);
 

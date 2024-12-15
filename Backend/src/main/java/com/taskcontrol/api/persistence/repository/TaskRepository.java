@@ -4,22 +4,24 @@ import com.taskcontrol.api.persistence.model.Task;
 import com.taskcontrol.api.persistence.model.TaskCategory;
 import com.taskcontrol.api.persistence.model.TaskStatus;
 import java.time.LocalDate;
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface TaskRepository extends JpaRepository<Task, Long> {
 
-  List<Task> findAllByStatus(TaskStatus status);
+  Page<Task> findAllByStatus(TaskStatus status, Pageable pageable);
 
-  List<Task> findAllByCategory(TaskCategory category);
+  Page<Task> findAllByCategory(TaskCategory category, Pageable pageable);
 
-  List<Task> findAllByCategoryAndStatus(TaskCategory category, TaskStatus status);
+  Page<Task> findAllByCategoryAndStatus(TaskCategory category, TaskStatus status,
+      Pageable pageable);
 
-  List<Task> findAllByDate(LocalDate date);
+  Page<Task> findAllByDate(LocalDate date, Pageable pageable);
 
-  List<Task> findAllByDateAfter(LocalDate date);
+  Page<Task> findAllByDateAfter(LocalDate date, Pageable pageable);
 
-  List<Task> findAllByDateBefore(LocalDate date);
+  Page<Task> findAllByDateBefore(LocalDate date, Pageable pageable);
 
-  List<Task> findAllByDateBetween(LocalDate dateAfter, LocalDate dateBefore);
+  Page<Task> findAllByDateBetween(LocalDate dateAfter, LocalDate dateBefore, Pageable pageable);
 }

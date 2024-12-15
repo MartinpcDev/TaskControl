@@ -2,6 +2,7 @@ package com.taskcontrol.api.controller;
 
 import com.taskcontrol.api.dto.request.TaskRequest;
 import com.taskcontrol.api.dto.request.TaskUpdateRequest;
+import com.taskcontrol.api.dto.response.AppResponse;
 import com.taskcontrol.api.dto.response.DeleteResponse;
 import com.taskcontrol.api.dto.response.TaskResponse;
 import com.taskcontrol.api.persistence.model.TaskCategory;
@@ -9,8 +10,9 @@ import com.taskcontrol.api.persistence.model.TaskStatus;
 import com.taskcontrol.api.services.ITaskService;
 import jakarta.validation.Valid;
 import java.time.LocalDate;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -35,31 +37,33 @@ public class TaskController {
   }
 
   @GetMapping
-  public ResponseEntity<List<TaskResponse>> findAll(
+  public ResponseEntity<AppResponse> findAll(
       @RequestParam(required = false) TaskCategory category,
       @RequestParam(required = false) TaskStatus status,
       @RequestParam(required = false) LocalDate date,
       @RequestParam(required = false) LocalDate after,
-      @RequestParam(required = false) LocalDate before
+      @RequestParam(required = false) LocalDate before,
+      @PageableDefault() Pageable pageable
+
   ) {
-    List<TaskResponse> taskResponseList;
+    AppResponse taskResponseList;
 
     if (category != null && status != null) {
-      taskResponseList = taskService.allTasksByCategoryAndStatus(category, status);
+      taskResponseList = taskService.allTasksByCategoryAndStatus(category, status, pageable);
     } else if (after != null && before != null) {
-      taskResponseList = taskService.taskByDateBetween(after, before);
+      taskResponseList = taskService.taskByDateBetween(after, before, pageable);
     } else if (date != null && after == null && before == null) {
-      taskResponseList = taskService.tasksByDate(date);
+      taskResponseList = taskService.tasksByDate(date, pageable);
     } else if (date == null && after != null) {
-      taskResponseList = taskService.taskByDateAfter(after);
+      taskResponseList = taskService.taskByDateAfter(after, pageable);
     } else if (date == null && before != null) {
-      taskResponseList = taskService.taskByDateBefore(before);
+      taskResponseList = taskService.taskByDateBefore(before, pageable);
     } else if (category != null) {
-      taskResponseList = taskService.allTasksByCategory(category);
+      taskResponseList = taskService.allTasksByCategory(category, pageable);
     } else if (status != null) {
-      taskResponseList = taskService.allTasksByStatus(status);
+      taskResponseList = taskService.allTasksByStatus(status, pageable);
     } else {
-      taskResponseList = taskService.allTasks();
+      taskResponseList = taskService.allTasks(pageable);
     }
 
     return ResponseEntity.ok(taskResponseList);

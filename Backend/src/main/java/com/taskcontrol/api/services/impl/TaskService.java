@@ -2,9 +2,11 @@ package com.taskcontrol.api.services.impl;
 
 import com.taskcontrol.api.dto.request.TaskRequest;
 import com.taskcontrol.api.dto.request.TaskUpdateRequest;
+import com.taskcontrol.api.dto.response.AppResponse;
 import com.taskcontrol.api.dto.response.DeleteResponse;
 import com.taskcontrol.api.dto.response.TaskResponse;
 import com.taskcontrol.api.exceptions.TaskNotFoundException;
+import com.taskcontrol.api.mapper.AppMapper;
 import com.taskcontrol.api.mapper.TaskMapper;
 import com.taskcontrol.api.persistence.model.Task;
 import com.taskcontrol.api.persistence.model.TaskCategory;
@@ -12,8 +14,9 @@ import com.taskcontrol.api.persistence.model.TaskStatus;
 import com.taskcontrol.api.persistence.repository.TaskRepository;
 import com.taskcontrol.api.services.ITaskService;
 import java.time.LocalDate;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -27,45 +30,53 @@ public class TaskService implements ITaskService {
   }
 
   @Override
-  public List<TaskResponse> allTasks() {
-    return TaskMapper.toTaskListResponse(taskRepository.findAll());
+  public AppResponse allTasks(Pageable pageable) {
+    Page<Task> taskPage = taskRepository.findAll(pageable);
+    return AppMapper.toAppResponse(taskPage);
   }
 
   @Override
-  public List<TaskResponse> allTasksByStatus(TaskStatus status) {
-    return TaskMapper.toTaskListResponse(taskRepository.findAllByStatus(status));
+  public AppResponse allTasksByStatus(TaskStatus status, Pageable pageable) {
+    Page<Task> taskPage = taskRepository.findAllByStatus(status, pageable);
+    return AppMapper.toAppResponse(taskPage);
   }
 
   @Override
-  public List<TaskResponse> allTasksByCategory(TaskCategory category) {
-    return TaskMapper.toTaskListResponse(taskRepository.findAllByCategory(category));
+  public AppResponse allTasksByCategory(TaskCategory category, Pageable pageable) {
+    Page<Task> taskPage = taskRepository.findAllByCategory(category, pageable);
+    return AppMapper.toAppResponse(taskPage);
   }
 
   @Override
-  public List<TaskResponse> allTasksByCategoryAndStatus(TaskCategory category, TaskStatus status) {
-    return TaskMapper.toTaskListResponse(
-        taskRepository.findAllByCategoryAndStatus(category, status));
+  public AppResponse allTasksByCategoryAndStatus(TaskCategory category, TaskStatus status,
+      Pageable pageable) {
+    Page<Task> taskPage = taskRepository.findAllByCategoryAndStatus(category, status, pageable);
+    return AppMapper.toAppResponse(taskPage);
   }
 
   @Override
-  public List<TaskResponse> tasksByDate(LocalDate date) {
-    return TaskMapper.toTaskListResponse(taskRepository.findAllByDate(date));
+  public AppResponse tasksByDate(LocalDate date, Pageable pageable) {
+    Page<Task> taskPage = taskRepository.findAllByDate(date, pageable);
+    return AppMapper.toAppResponse(taskPage);
   }
 
   @Override
-  public List<TaskResponse> taskByDateAfter(LocalDate date) {
-    return TaskMapper.toTaskListResponse(taskRepository.findAllByDateAfter(date));
+  public AppResponse taskByDateAfter(LocalDate date, Pageable pageable) {
+    Page<Task> taskPage = taskRepository.findAllByDateAfter(date, pageable);
+    return AppMapper.toAppResponse(taskPage);
   }
 
   @Override
-  public List<TaskResponse> taskByDateBefore(LocalDate date) {
-    return TaskMapper.toTaskListResponse(taskRepository.findAllByDateBefore(date));
+  public AppResponse taskByDateBefore(LocalDate date, Pageable pageable) {
+    Page<Task> taskPage = taskRepository.findAllByDateBefore(date, pageable);
+    return AppMapper.toAppResponse(taskPage);
   }
 
   @Override
-  public List<TaskResponse> taskByDateBetween(LocalDate afterDate, LocalDate beforeDate) {
-    return TaskMapper.toTaskListResponse(
-        taskRepository.findAllByDateBetween(afterDate, beforeDate));
+  public AppResponse taskByDateBetween(LocalDate afterDate, LocalDate beforeDate,
+      Pageable pageable) {
+    Page<Task> taskPage = taskRepository.findAllByDateBetween(afterDate, beforeDate, pageable);
+    return AppMapper.toAppResponse(taskPage);
   }
 
   @Override
