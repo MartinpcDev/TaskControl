@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { BaseHttpService } from './base-http.service';
-import { Task, UpdateTask } from './model/task.model';
+import { ApiResponse, Task, UpdateTask } from './model/task.model';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService extends BaseHttpService {
-  getTasks(): Observable<Task[]> {
-    return this.http.get<Task[]>(`${this.apiUrl}/tasks`);
+  getTasks(): Observable<ApiResponse> {
+    return this.http.get<ApiResponse>(`${this.apiUrl}/tasks`);
   }
 
   getTask(id: number): Observable<Task> {

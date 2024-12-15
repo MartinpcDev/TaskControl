@@ -1,3 +1,10 @@
+export interface ApiResponse {
+  tasks: Task[];
+  page: number;
+  size: number;
+  total: number;
+}
+
 export interface Task {
   id: number;
   title: string;

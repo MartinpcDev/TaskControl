@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { ApiService } from '../api.service';
 import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { Task } from '../model/task.model';
+import { ApiResponse, Task } from '../model/task.model';
 
 @Component({
   selector: 'app-table',
@@ -16,8 +16,8 @@ export class TableComponent {
   tasks: Task[] = [];
 
   constructor() {
-    this.apiService.getTasks().subscribe((data: Task[]) => {
-      this.tasks = data;
+    this.apiService.getTasks().subscribe((data: ApiResponse) => {
+      this.tasks = data.tasks;
     });
   }
 }
