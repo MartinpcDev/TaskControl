@@ -1,5 +1,18 @@
 services:
 
+  spring-api-image:
+    image: spring-api-image
+    container_name: spring-api-container
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - task-network
+    depends_on:
+      - db
+
   db:
     image: postgres:latest
     container_name: task_control
@@ -9,10 +22,10 @@ services:
       POSTGRES_PASSWORD: 123456
     ports:
       - "5432:5432"
-    volumes:
-      - db-data:/var/lib/postgresql/data
     networks:
       - task-network
+    volumes:
+      - db-data:/var/lib/postgresql/data
 
 networks:
   task-network:
