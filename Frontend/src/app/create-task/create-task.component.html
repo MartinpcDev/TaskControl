@@ -1,0 +1,90 @@
+<form [formGroup]="taskForm" class="w-96 mx-auto space-y-5" (submit)="onSubmit()">
+  <div class="relative z-0 w-full mb-5 group">
+    <input type="text" name="title" id="title"
+      class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+      placeholder=" " required formControlName="title" />
+    <label for="title"
+      class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Title</label>
+    @if(hasErrors('title','required')){
+    <span class="mt-2 text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
+      El title es requerido
+    </span>
+    }@else if (hasErrors('title','minlength')) {
+    <span class="mt-2 text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
+      El title debe tener 10 caracteres minimo
+    </span>
+    }@else if(hasErrors('title','maxlength')){
+    <span class="mt-2 text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
+      El title debe tener 60 caracteres maximo
+    </span>
+    }
+  </div>
+  <div class="relative z-0 w-full mb-5 group">
+    <input type="text" name="description" id="description"
+      class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+      placeholder=" " required formControlName="description" />
+    <label for="description"
+      class="peer-focus:font-medium absolute text-sm text-gray-500  duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Description</label>
+    @if(hasErrors('description','required')){
+    <span class="mt-2 text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
+      La description es requerida
+    </span>
+    }@else if (hasErrors('description','minlength')) {
+    <span class="mt-2 text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
+      La description debe tener 10 caracteres minimo
+    </span>
+    }@else if(hasErrors('description','maxlength')){
+    <span class="mt-2 text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
+      La description debe tener 300 caracteres maximo
+    </span>
+    }
+  </div>
+  <div class="relative z-0 w-full mb-5 group">
+    <label for="category" class="sr-only">Choose a Category</label>
+    <select id="category"
+      class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+      formControlName="category">
+      <option selected value="" disabled>Choose a Category</option>
+      <option value="PERSONAL">PERSONAL</option>
+      <option value="TRABAJO">TRABAJO</option>
+      <option value="EDUCACION">EDUCACION</option>
+      <option value="HOGAR">HOGAR</option>
+      <option value="SALUD">SALUD</option>
+      <option value="OCIO">OCIO</option>
+      <option value="OTRO">OTRO</option>
+    </select>
+    @if(hasErrors('category','required')){
+    <span class="mt-2 text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
+      La category es requerida
+    </span>
+    }
+  </div>
+  <div class="relative z-0 w-full mb-5 group">
+    <label for="status" class="sr-only">Choose a Status</label>
+    <select id="status"
+      class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+      formControlName="status">
+      <option value="" disabled>Choose a Status</option>
+      <option value="PENDING">PENDING</option>
+      <option value="IN_PROGRESS">IN_PROGRESS</option>
+      <option value="COMPLETED">COMPLETED</option>
+    </select>
+    @if(hasErrors('status','required')){
+    <span class="mt-2 text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
+      El status es requerido
+    </span>
+    }
+  </div>
+  <div class="relative max-w-sm">
+    <input id="date-task" datepicker datepicker-autohide datepicker-autoselect-today type="date"
+      class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+      placeholder="Select date" formControlName="date">
+    @if(hasErrors('date','required')){
+    <span class="mt-2 text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
+      La date es requerida
+    </span>
+    }
+  </div>
+  <button type="submit"
+    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Submit</button>
+</form>

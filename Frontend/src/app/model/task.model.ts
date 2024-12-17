@@ -24,3 +24,5 @@ export interface Task {
 export type UpdateTask = Partial<
   Pick<Task, 'title' | 'description' | 'category' | 'status' | 'date'>
 >;
+
+export type CreateTask = Omit<Task, 'id'>;
