@@ -43,7 +43,7 @@ public class TaskController {
       @RequestParam(required = false) LocalDate date,
       @RequestParam(required = false) LocalDate after,
       @RequestParam(required = false) LocalDate before,
-      @PageableDefault() Pageable pageable
+      @PageableDefault(sort = {"id"}) Pageable pageable
 
   ) {
     AppResponse taskResponseList;
