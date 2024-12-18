@@ -7,7 +7,7 @@ import { HeaderComponent } from './header/header.component';
   standalone: true,
   imports: [RouterOutlet, HeaderComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
+  styles: '',
 })
 export class AppComponent {
   title = 'Task Control';
