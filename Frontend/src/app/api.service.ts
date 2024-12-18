@@ -7,10 +7,17 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ApiService extends BaseHttpService {
-  getTasks(page: number = 0, size: number = 10): Observable<ApiResponse> {
-    return this.http.get<ApiResponse>(`${this.apiUrl}/tasks`, {
-      params: { page: page.toString(), size: size.toString() },
-    });
+  getTasks(
+    page: number = 0,
+    size: number = 10,
+    filters: { [key: string]: any }
+  ): Observable<ApiResponse> {
+    const params: any = {
+      page: page.toString(),
+      size: size.toString(),
+      ...filters,
+    };
+    return this.http.get<ApiResponse>(`${this.apiUrl}/tasks`, { params });
   }
 
   getTask(id: number): Observable<Task> {
