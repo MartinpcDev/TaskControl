@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { TableComponent } from './table/table.component';
 import { DetailComponent } from './detail/detail.component';
 import { CreateTaskComponent } from './create-task/create-task.component';
+import { EditTaskComponent } from './edit-task/edit-task.component';
 
 export const routes: Routes = [
   {
@@ -15,6 +16,10 @@ export const routes: Routes = [
   {
     path: 'create',
     component: CreateTaskComponent,
+  },
+  {
+    path: 'edit/:id',
+    component: EditTaskComponent,
   },
   {
     path: '**',

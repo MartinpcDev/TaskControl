@@ -95,6 +95,7 @@
           Fecha
         </th>
         <th scope="col" class="px-6 py-3"></th>
+        <th scope="col" class="px-6 py-3"></th>
       </tr>
     </thead>
     <tbody>
@@ -115,6 +116,10 @@
         <td class="px-6 py-4">
           <button type="button" class="font-medium text-blue-600 hover:underline"
             [routerLink]="['/tasks', task?.id]">Ver</button>
+        </td>
+        <td class="px-6 py-4">
+          <button type="button" class="font-medium text-yellow-600 hover:underline"
+            [routerLink]="['/edit', task?.id]">Editar</button>
         </td>
       </tr>
       }
